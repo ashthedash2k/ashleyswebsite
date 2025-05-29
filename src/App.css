@@ -1,38 +1,116 @@
+body {
+  margin: 0;
+  font-family: 'Comic Neue', cursive;
+  background-color: #FFF5FA;
+  color: #705f7c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .App {
   text-align: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #fceff9;
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.3);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.About {
+  text-align: center; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.containerBlog {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;   
+  align-items: center;      
+  justify-content: flex-start; 
+  height: 50vh;          
+  padding-top: 40px;       
+}
+.text-box {
+  width: 300px;
+  padding: 1rem;
+  background-color: #fceff9;
+  border-radius: 1rem;
+  border: 2px groove #d49ac2;
+  color: #705f7c;
+  margin-top: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.blog-links{
+  width: 300px;
+  padding: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.blog-header {
+  text-align: left;
+  padding-left: 2rem; 
+}
+
+.blog-title{
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Times New Roman', Times, serif;
+  color: #d36ba1;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px #f5c7de;
+}
+
+.blog-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #d36ba1;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+.subtitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: #cf51c8;
+  text-align: left;
+  margin-right: 30rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+
+
+
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #d49ac2;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+nav {
+  position: fixed;   
+  top: 0;
+  left: 0;
+  padding: 1rem 1.5rem;
+  background: transparent; 
+  z-index: 1000; 
+}
+
+nav a {
+  margin-right: 1rem; 
+  color: #705f7c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
