@@ -60,6 +60,33 @@ function Post1() {
           Take a neural network for example. When you use Metal, you can offload 
           tensor operations (like matrix multiplication) onto the GPU.
         </p>
+
+        <h2 className="subtitle">Metal Process Flow</h2>
+        <p>
+          Metal is written in the Metal Shading language (MSL) which is based on C++14. 
+          In this series, we will be performing the GPU optimization with the MSL. Then 
+          we use Swift to interact with Metal's API. Swift allows us to create a MTL device which is 
+          like a gateway to creating Metal resources and sending commands. Once you have a device
+          you create memory buffers and textures that hold the data your GPU code processes. A buffer
+          is a linear memory array which is used to store vertex positions or tensor values. Textures 
+          are multidimensional arrays data stored in GPU memory. This is more relevant for graphics and less
+          relevant towards what we are doing in this series. Swift also allows us to set up metal shaders, 
+          which are essentially kernels (not the same but similar idea). 
+        </p>
+        <p>
+          MSL code is compiled ahead of time into a library. You load this library at runtime to access your 
+          GPU functions. From this library the next step is the graph the specific function you want to run.
+          After the compliation and setup, we want to encode commands and submit them to the GPU. 
+          To do this, we would create a command queue to schedule GPU work. This is a queue where your GPU 
+          commands line up. From the command queue, we must create a command buffer, which is a container 
+          for one or more encoded GPU commands. Lastly, you can't just throw data and shaders at the GPU and 
+          hope that it figures out what to do. You need to specify which shaders to use, bind resources (the buffers), 
+          and tell the GPU when to start and stop processing. We encode these steps in a command encoder. 
+        </p>
+
+        <p>TLDR the flow is create resources, then compile GPU code, 
+          then encode commands, then submit to GPU, then finally have the gpu run the code!
+        </p>
       </div>
     </div>
   );
