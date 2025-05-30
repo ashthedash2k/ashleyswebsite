@@ -95,7 +95,7 @@ function Post2() {
   return (
     <div className="containerBlog">
       <div className="blog-header">
-        <h1 className="blog-title">CUDA VS Metal </h1>
+        <h1 className="blog-title">CUDA VS Metal + Synchronization </h1>
         <h2 className="subtitle">Preface</h2>
         <p>
           If you haven't heard of Metal, you definitely have heard of CUDA.
@@ -146,6 +146,25 @@ function Post2() {
           we use something called a barrier. This tells the GPU to wait until all threads in this threadgroup have reached 
           some point and finished their threadgroup memory operations.
         </p>
+
+        <h2 className="subtitle">Wrapping It Up</h2>
+        <p>
+          Understanding the differences in execution models between CUDA and Metal 
+          is important to writing good GPU code on each platform. Although CUDA 
+          provides powerful abstraction due to SIMT and warp-level execution, 
+          Metal gives developers more explicit control through SIMD vector operations. 
+          The difference impacts how we write code and how we think about memory access patterns, 
+          divergence, and synchronization. In Metal we must be deliberate about vectorization and
+          managing synchronization with threadgroups and barriers. When used correctly, we
+          get awesome results that yield very optimized performance.
+        </p>
+
+        <p>
+          In the next tutorial, we will walk through how to optimize matrix multiplication using metal!
+          We'll see how to make custom shaders, use threadgroup memory effectively, and 
+          synchronize threads for high performance parallel programming. 
+        </p>
+
         
       </div>
     </div>
@@ -161,7 +180,7 @@ function Blog() {
         <Link to="/blog/post1">What is Metal?</Link>
       </div>
       <div className="blog-links">
-      <Link to="/blog/post2">Cuda VS Metal</Link>
+      <Link to="/blog/post2">Cuda VS Metal + Synchronization</Link>
       </div>
     </div>
   );
