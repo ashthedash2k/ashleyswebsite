@@ -91,6 +91,67 @@ function Post1() {
     </div>
   );
 }
+function Post2() {
+  return (
+    <div className="containerBlog">
+      <div className="blog-header">
+        <h1 className="blog-title">CUDA VS Metal </h1>
+        <h2 className="subtitle">Preface</h2>
+        <p>
+          If you haven't heard of Metal, you definitely have heard of CUDA.
+          Both are for GPU programming however CUDA was created by NVIDIA and is ran 
+          by NVIDIA GPUs and Metal was created by Apple and runs on Apple Silicon. 
+          CUDA is older than Metal and therefore more developed. You can use Metal for 
+          deep learning because you can write your own deep learning operations in MSL (which 
+          is what we will be doing in this series!).
+        </p>
+        <h2 className="subtitle">SIMD VS SIMT</h2>
+        <p>Both SIMD and SIMT are ways to execute programs in parallel. CUDA uses 
+          SIMT which means that each thread executes its own copy of the program. Threads are
+          organized into warps (which are groups of 32 on NVIDIA GPUs). All threads in a warp execute
+          in lockstep which means that if all threads follow the same execution path we get a fast execution.
+          If threads diverge (which means that the control flow goes down different branches), there is slower execution 
+          due to warp divergence. Even though CUDA handles divergence, it does hurt performance. 
+        </p>
+        <p> In contrast, metal uses SIMD which means that a single instruction operates on multiple values simultaneously.
+          So you write shaders in Metal and we think of them as mini parallel programs. Each thread processes a chunk of 
+          data, using vector types refered to as float# (example, float2 is a two component vector with 32-bit floating point values). 
+          Threads are scheduled in threadgroups, which is terminology that means that threads are executed together and can 
+          share a common block of memory. 
+        </p>
+
+        <h2 className="subtitle">Why Distinction Matters</h2>
+        <p>
+          Vectorization is more explicit in Metal. You write code that operates on vectors 
+          which allows of the user to be very aware of how data is packaged and processed. 
+          Because you control the vector width and alignment, this leads to efficient use of the hardware.
+          CUDA sort of abstracts vectorization behind threads. This makes it easier to write parallel code without
+          worrying about explicit vector operations, but it can be less efficient if there is lots of divergence or poor 
+          memory access patterns. 
+        </p>
+        <h2 className="subtitle">Synchronization In Metal</h2>
+        <p>
+          A threadgroup is a collection of threads. Threads in the same
+          threadgroup can run on the same compute unit. This means that they can 
+          share data using threadgroup memory (fast shared memory) and synchronize with 
+          each other using barriers. 
+        </p>
+        <p>
+          Threadgroup memory is memory shared only by threads in the same thread group. 
+          We use this to share itermediate results, avoid costly global memory reads/writes, 
+          and coordinate tasks (example matrix multiplication, which will be seen in future tutorials).
+        </p>
+        <p>
+          When threads in a threadgroup need to ensure all have completed some work before continuing, 
+          we use something called a barrier. This tells the GPU to wait until all threads in this threadgroup have reached 
+          some point and finished their threadgroup memory operations.
+        </p>
+        
+      </div>
+    </div>
+  );
+}
+
 
 function Blog() {
   return (
@@ -98,6 +159,9 @@ function Blog() {
       <h1>My Writing</h1>
       <div className="blog-links">
         <Link to="/blog/post1">What is Metal?</Link>
+      </div>
+      <div className="blog-links">
+      <Link to="/blog/post2">Cuda VS Metal</Link>
       </div>
     </div>
   );
@@ -186,6 +250,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/post1" element={<Post1 />} />
+        <Route path="/blog/post2" element={<Post2 />} />
+
         <Route path="/misc" element={<Misc />} />
         <Route path="/misc/coffee" element={<Coffee />} />
         <Route path="/misc/readinglist" element={<ReadingList />} />
